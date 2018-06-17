@@ -1,6 +1,6 @@
 clear;
 %% Load the data from the given directory and normalize the amplitudes
-filePattern = fullfile('Noisy_dataset','setb','*.wav');
+filePattern = fullfile('t2','set_a','*.wav');
 dirListings = dir(filePattern);
 dir_len = length(dirListings);
 fileID = fopen('set_a_timing.csv');
