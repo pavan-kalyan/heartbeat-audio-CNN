@@ -1,13 +1,23 @@
 clear;
-%% Load the data from the given directory and normalize the amplitudes
+%Wave segment will generate new data which has been segmented to aling S1
+%and S2 peaks in the audio data
+%wave_segment;
+%% Load the data from the given directory
 filePattern = fullfile('t2','set_a','*.wav');
 dirListings = dir(filePattern);
 dir_len = length(dirListings);
 fileID = fopen('set_a_timing.csv');
 data = textscan(fileID,'%s %s %s %s','Delimiter',',');
 categories ={'Artifact','Extrahls','Murmur','Normal','Unlabelled'};
-
 len = 3099;
+%% Generate the relevant directory for saving the outputs the files
+search_dir = fullfile('t2','images');
+mkdir(search_dir);
+for k = 1:numel(categories)
+   if(exist(search_dir,'dir') == 7)
+        mkdir(fullfile('t2','images',char(categories(k))));
+   end
+end
 %% The the wave files are read, normalized and filtered and categorized images are produced
 
 %For the unlabelled data
