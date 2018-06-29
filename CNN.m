@@ -7,7 +7,7 @@ layers = [
     convolution2dLayer(3,32,'Padding',1)
    batchNormalizationLayer
     reluLayer 
-    fullyConnectedLayer(3)
+    fullyConnectedLayer(4)
     softmaxLayer
     classificationLayer];
 %opts = trainingOptions('sgdm');

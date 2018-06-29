@@ -1,6 +1,6 @@
 clear;
 %% Load the data from the given directory and normalize the amplitudes
-filePattern = fullfile('t2','set_a','*.wav');
+filePattern = fullfile('set_a','*.wav');
 dirListings = dir(filePattern);
 dir_len = length(dirListings);
 fileID = fopen('set_a_timing.csv');
@@ -12,7 +12,7 @@ len = 3099;
 
 %For the unlabelled data
 for d = 1:52
-    [y,fs] = audioread(strcat('t2\set_a\',dirListings(d).name));  
+    [y,fs] = audioread(strcat('set_a\',dirListings(d).name));  
     
     %The data is normalized using generalized min-max method.
     norm_y = ((y-min(y))/(max(y) - min(y)))*(1+1)-1;
@@ -24,12 +24,12 @@ for d = 1:52
     
     image = image(:,mod(0:len-1, numel(image(1,:))) + 1); %repeat audio to length
     
-    imwrite(image,strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'),'png');
+    imwrite(image,strcat('images\Unlabelled\',dirListings(d).name(1:end-4),'.png'),'png');
 end
 
 %For the artifact data
 for d = 53:92
-    [y,fs] = audioread(strcat('t2\set_a\',dirListings(d).name));  
+    [y,fs] = audioread(strcat('set_a\',dirListings(d).name));  
     
     %The data is normalized using generalized min-max method.
     norm_y = ((y-min(y))/(max(y) - min(y)))*(1+1)-1;
@@ -41,12 +41,12 @@ for d = 53:92
     
     image = image(:,mod(0:len-1, numel(image(1,:))) + 1); %repeat audio to length
     
-    imwrite(image,strcat('t2\images\Artifact\',dirListings(d).name(1:end-4),'.png'),'png');
+    imwrite(image,strcat('images\Artifact\',dirListings(d).name(1:end-4),'.png'),'png');
 end
 
 %For the extrahls data
 for d = 93:111
-    [y,fs] = audioread(strcat('t2\set_a\',dirListings(d).name));  
+    [y,fs] = audioread(strcat('set_a\',dirListings(d).name));  
     
     %The data is normalized using generalized min-max method.
     norm_y = ((y-min(y))/(max(y) - min(y)))*(1+1)-1;
@@ -58,12 +58,12 @@ for d = 93:111
     
     image = image(:,mod(0:len-1, numel(image(1,:))) + 1); %repeat audio to length
     
-    imwrite(image,strcat('t2\images\Extrahls\',dirListings(d).name(1:end-4),'.png'),'png');
+    imwrite(image,strcat('images\Extrahls\',dirListings(d).name(1:end-4),'.png'),'png');
 end
 
 %For the Murmur data
 for d = 112:145
-    [y,fs] = audioread(strcat('t2\set_a\',dirListings(d).name));  
+    [y,fs] = audioread(strcat('set_a\',dirListings(d).name));  
     
     %The data is normalized using generalized min-max method.
     norm_y = ((y-min(y))/(max(y) - min(y)))*(1+1)-1;
@@ -75,12 +75,12 @@ for d = 112:145
     
     image = image(:,mod(0:len-1, numel(image(1,:))) + 1); %repeat audio to length
     
-    imwrite(image,strcat('t2\images\Murmur\',dirListings(d).name(1:end-4),'.png'),'png');
+    imwrite(image,strcat('images\Murmur\',dirListings(d).name(1:end-4),'.png'),'png');
 end
 
 %For the Normal data
 for d = 146:176
-    [y,fs] = audioread(strcat('t2\set_a\',dirListings(d).name));  
+    [y,fs] = audioread(strcat('set_a\',dirListings(d).name));  
     
     %The data is normalized using generalized min-max method.
     norm_y = ((y-min(y))/(max(y) - min(y)))*(1+1)-1;
@@ -92,10 +92,10 @@ for d = 146:176
     
     image = image(:,mod(0:len-1, numel(image(1,:))) + 1); %repeat audio to length
     
-    imwrite(image,strcat('t2\images\Normal\',dirListings(d).name(1:end-4),'.png'),'png');
+    imwrite(image,strcat('images\Normal\',dirListings(d).name(1:end-4),'.png'),'png');
 end
 %% Loading and processing a bit quicker.
-rootFolder = fullfile('t2','images');
+rootFolder = fullfile('images');
 
 %Train with all data except the unlabelled stuff
 trainData = imageDatastore(fullfile(rootFolder, categories(1:4)), 'LabelSource', 'foldernames');
