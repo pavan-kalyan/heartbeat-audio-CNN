@@ -27,14 +27,26 @@ for d = 1:52
     %The data is normalized using generalized min-max method.
     norm_y = ((y-min(y))/(max(y) - min(y)))*(1+1)-1;
     
-    %Filter using a lowpass filter
-    filt_y = doFilter(norm_y);
+    %image = spectrogram(norm_y,256,224,1024,fs,'yaxis');
+    %Settings to set position of figure axes
+    axes('Units', 'normalized', 'Position', [0 0 1 1])
+    colormap gray;
+    %Generate the sectrogram and save gcf to fig
+    spectrogram(norm_y,256,224,1024,fs,'yaxis');
+    fig = gcf;
+    %Configureations to turn off various features of the figure
+    set(fig,'Visible','off');
+    colorbar off;
+    axis off;
+    iptsetpref('ImshowBorder','tight');
     
-    image = spectrogram(filt_y,256,224,1024,fs,'yaxis');
-    
+    %Save the image and modify to ensure all spectrograms are of same
+    %length
+    saveas(fig,strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'),'png');
+    image = imread(strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'));
     image = image(:,mod(0:len-1, numel(image(1,:))) + 1); %repeat audio to length
-    
     imwrite(image,strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'),'png');
+    
 end
 
 %For the artifact data
@@ -44,14 +56,24 @@ for d = 53:92
     %The data is normalized using generalized min-max method.
     norm_y = ((y-min(y))/(max(y) - min(y)))*(1+1)-1;
     
-    %Filter using a lowpass filter
-    filt_y = doFilter(norm_y);
+    %Settings to set position of figure axes
+    axes('Units', 'normalized', 'Position', [0 0 1 1])
+    colormap gray;
+    %Generate the sectrogram and save gcf to fig
+    spectrogram(norm_y,256,224,1024,fs,'yaxis');
+    fig = gcf;
+    %Configureations to turn off various features of the figure
+    set(fig,'Visible','off');
+    colorbar off;
+    axis off;
+    iptsetpref('ImshowBorder','tight');
     
-    image = spectrogram(filt_y,256,224,1024,fs,'yaxis');
-    
+    %Save the image and modify to ensure all spectrograms are of same
+    %length
+    saveas(fig,strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'),'png');
+    image = imread(strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'));
     image = image(:,mod(0:len-1, numel(image(1,:))) + 1); %repeat audio to length
-    
-    imwrite(image,strcat('t2\images\Artifact\',dirListings(d).name(1:end-4),'.png'),'png');
+    imwrite(image,strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'),'png');
 end
 
 %For the extrahls data
@@ -61,14 +83,24 @@ for d = 93:111
     %The data is normalized using generalized min-max method.
     norm_y = ((y-min(y))/(max(y) - min(y)))*(1+1)-1;
     
-    %Filter using a lowpass filter
-    filt_y = doFilter(norm_y);
+    %Settings to set position of figure axes
+    axes('Units', 'normalized', 'Position', [0 0 1 1])
+    colormap gray;
+    %Generate the sectrogram and save gcf to fig
+    spectrogram(norm_y,256,224,1024,fs,'yaxis');
+    fig = gcf;
+    %Configureations to turn off various features of the figure
+    set(fig,'Visible','off');
+    colorbar off;
+    axis off;
+    iptsetpref('ImshowBorder','tight');
     
-    image = spectrogram(filt_y,256,224,1024,fs,'yaxis');
-    
+    %Save the image and modify to ensure all spectrograms are of same
+    %length
+    saveas(fig,strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'),'png');
+    image = imread(strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'));
     image = image(:,mod(0:len-1, numel(image(1,:))) + 1); %repeat audio to length
-    
-    imwrite(image,strcat('t2\images\Extrahls\',dirListings(d).name(1:end-4),'.png'),'png');
+    imwrite(image,strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'),'png');
 end
 
 %For the Murmur data
@@ -78,14 +110,24 @@ for d = 112:145
     %The data is normalized using generalized min-max method.
     norm_y = ((y-min(y))/(max(y) - min(y)))*(1+1)-1;
     
-    %Filter using a lowpass filter
-    filt_y = doFilter(norm_y);
+    %Settings to set position of figure axes
+    axes('Units', 'normalized', 'Position', [0 0 1 1])
+    colormap gray;
+    %Generate the sectrogram and save gcf to fig
+    spectrogram(norm_y,256,224,1024,fs,'yaxis');
+    fig = gcf;
+    %Configureations to turn off various features of the figure
+    set(fig,'Visible','off');
+    colorbar off;
+    axis off;
+    iptsetpref('ImshowBorder','tight');
     
-    image = spectrogram(filt_y,256,224,1024,fs,'yaxis');
-    
+    %Save the image and modify to ensure all spectrograms are of same
+    %length
+    saveas(fig,strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'),'png');
+    image = imread(strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'));
     image = image(:,mod(0:len-1, numel(image(1,:))) + 1); %repeat audio to length
-    
-    imwrite(image,strcat('t2\images\Murmur\',dirListings(d).name(1:end-4),'.png'),'png');
+    imwrite(image,strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'),'png');
 end
 
 %For the Normal data
@@ -95,14 +137,24 @@ for d = 146:176
     %The data is normalized using generalized min-max method.
     norm_y = ((y-min(y))/(max(y) - min(y)))*(1+1)-1;
     
-    %Filter using a lowpass filter
-    filt_y = doFilter(norm_y);
+    %Settings to set position of figure axes
+    axes('Units', 'normalized', 'Position', [0 0 1 1])
+    colormap gray;
+    %Generate the sectrogram and save gcf to fig
+    spectrogram(norm_y,256,224,1024,fs,'yaxis');
+    fig = gcf;
+    %Configureations to turn off various features of the figure
+    set(fig,'Visible','off');
+    colorbar off;
+    axis off;
+    iptsetpref('ImshowBorder','tight');
     
-    image = spectrogram(filt_y,256,224,1024,fs,'yaxis');
-    
+    %Save the image and modify to ensure all spectrograms are of same
+    %length
+    saveas(fig,strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'),'png');
+    image = imread(strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'));
     image = image(:,mod(0:len-1, numel(image(1,:))) + 1); %repeat audio to length
-    
-    imwrite(image,strcat('t2\images\Normal\',dirListings(d).name(1:end-4),'.png'),'png');
+    imwrite(image,strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'),'png');
 end
 %% Loading and processing a bit quicker.
 rootFolder = fullfile('t2','images');
