@@ -32,7 +32,7 @@ for d = 1:52
     axes('Units', 'normalized', 'Position', [0 0 1 1])
     colormap gray;
     %Generate the sectrogram and save gcf to fig
-    spectrogram(norm_y,256,224,1024,fs,'yaxis');
+    spectrogram(norm_y,length(norm_y),[],1024,fs,'yaxis');
     fig = gcf;
     %Configureations to turn off various features of the figure
     set(fig,'Visible','off');
@@ -60,7 +60,7 @@ for d = 53:92
     axes('Units', 'normalized', 'Position', [0 0 1 1])
     colormap gray;
     %Generate the sectrogram and save gcf to fig
-    spectrogram(norm_y,256,224,1024,fs,'yaxis');
+    spectrogram(norm_y,length(norm_y),[],1024,fs,'yaxis');
     fig = gcf;
     %Configureations to turn off various features of the figure
     set(fig,'Visible','off');
@@ -87,7 +87,7 @@ for d = 93:111
     axes('Units', 'normalized', 'Position', [0 0 1 1])
     colormap gray;
     %Generate the sectrogram and save gcf to fig
-    spectrogram(norm_y,256,224,1024,fs,'yaxis');
+    spectrogram(norm_y,length(norm_y),[],1024,fs,'yaxis');
     fig = gcf;
     %Configureations to turn off various features of the figure
     set(fig,'Visible','off');
@@ -114,7 +114,7 @@ for d = 112:145
     axes('Units', 'normalized', 'Position', [0 0 1 1])
     colormap gray;
     %Generate the sectrogram and save gcf to fig
-    spectrogram(norm_y,256,224,1024,fs,'yaxis');
+    spectrogram(norm_y,length(norm_y),[],1024,fs,'yaxis');
     fig = gcf;
     %Configureations to turn off various features of the figure
     set(fig,'Visible','off');
@@ -141,7 +141,7 @@ for d = 146:176
     axes('Units', 'normalized', 'Position', [0 0 1 1])
     colormap gray;
     %Generate the sectrogram and save gcf to fig
-    spectrogram(norm_y,256,224,1024,fs,'yaxis');
+    spectrogram(norm_y,length(norm_y),[],1024,fs,'yaxis');
     fig = gcf;
     %Configureations to turn off various features of the figure
     set(fig,'Visible','off');
