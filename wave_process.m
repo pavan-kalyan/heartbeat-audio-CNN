@@ -70,10 +70,10 @@ for d = 53:92
     
     %Save the image and modify to ensure all spectrograms are of same
     %length
-    saveas(fig,strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'),'png');
-    image = imread(strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'));
+    saveas(fig,strcat('t2\images\Artifact\',dirListings(d).name(1:end-4),'.png'),'png');
+    image = imread(strcat('t2\images\Artifact\',dirListings(d).name(1:end-4),'.png'));
     image = image(:,mod(0:len-1, numel(image(1,:))) + 1); %repeat audio to length
-    imwrite(image,strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'),'png');
+    imwrite(image,strcat('t2\images\Artifact\',dirListings(d).name(1:end-4),'.png'),'png');
 end
 
 %For the extrahls data
@@ -97,10 +97,10 @@ for d = 93:111
     
     %Save the image and modify to ensure all spectrograms are of same
     %length
-    saveas(fig,strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'),'png');
-    image = imread(strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'));
+    saveas(fig,strcat('t2\images\Extrahls\',dirListings(d).name(1:end-4),'.png'),'png');
+    image = imread(strcat('t2\images\Extrahls\',dirListings(d).name(1:end-4),'.png'));
     image = image(:,mod(0:len-1, numel(image(1,:))) + 1); %repeat audio to length
-    imwrite(image,strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'),'png');
+    imwrite(image,strcat('t2\images\Extrahls\',dirListings(d).name(1:end-4),'.png'),'png');
 end
 
 %For the Murmur data
@@ -124,10 +124,10 @@ for d = 112:145
     
     %Save the image and modify to ensure all spectrograms are of same
     %length
-    saveas(fig,strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'),'png');
-    image = imread(strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'));
+    saveas(fig,strcat('t2\images\Murmur\',dirListings(d).name(1:end-4),'.png'),'png');
+    image = imread(strcat('t2\images\Murmur\',dirListings(d).name(1:end-4),'.png'));
     image = image(:,mod(0:len-1, numel(image(1,:))) + 1); %repeat audio to length
-    imwrite(image,strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'),'png');
+    imwrite(image,strcat('t2\images\Murmur\',dirListings(d).name(1:end-4),'.png'),'png');
 end
 
 %For the Normal data
@@ -151,10 +151,10 @@ for d = 146:176
     
     %Save the image and modify to ensure all spectrograms are of same
     %length
-    saveas(fig,strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'),'png');
-    image = imread(strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'));
+    saveas(fig,strcat('t2\images\Normal\',dirListings(d).name(1:end-4),'.png'),'png');
+    image = imread(strcat('t2\images\Normal\',dirListings(d).name(1:end-4),'.png'));
     image = image(:,mod(0:len-1, numel(image(1,:))) + 1); %repeat audio to length
-    imwrite(image,strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'),'png');
+    imwrite(image,strcat('t2\images\Normal\',dirListings(d).name(1:end-4),'.png'),'png');
 end
 %% Loading and processing a bit quicker.
 rootFolder = fullfile('t2','images');
