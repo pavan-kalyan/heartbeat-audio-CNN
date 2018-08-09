@@ -1,19 +1,26 @@
 function mqtt_classify(topicName,msg)
-import('org.apache.commons.codec.binary.Base64');
 
-base64 = Base64();
 
+global myMQTT
 fprintf('This message is sent at time %s\n', datestr(now))
 disp('Topic :');
 disp(topicName);
 disp('msg : ');
-disp(msg)
-temp=uint8(convertStringsToChars(msg));
-img_bytes = base64.decode(temp);
-fid = fopen('test.bin','w');
-fwrite(fid,img_bytes,'int8');
-fclose(fid);
-img = imread('test.bin');
-imshow(img);
-%classify(convnet,img)
+disp(msg);
+
+%audio processing
+[y,fs] = audioread('C:\Users\Sapy\Documents\MATLAB\example.wav');
+y = y(:,1);
+dt = 1/fs;
+t = 0:dt:(length(y)*dt)-dt;
+%spectrogram generation
+image = spectrogram(y,256,[],[],fs,'yaxis');
+image = image(:,mod(0:len-1, numel(image(1,:))) + 1); %repeat audio to length
+imshow(image);
+%classification
+result = classify(convnet,image)
+str = char(result(1));
+
+
+publish(myMQTT,'out',str);
 end
