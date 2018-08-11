@@ -29,21 +29,25 @@ for d = 1:52
     %The data is normalized using generalized min-max method.
     norm_y = ((y-min(y))/(max(y) - min(y)))*(1+1)-1;
     
-    %image = spectrogram(norm_y,256,224,1024,fs,'yaxis');
-    %Settings to set position of figure axes
+    %Settings to set position of figure axes 
     axes('Units', 'normalized', 'Position', [0 0 1 1])
-    colormap gray;
+    F =linspace(1,1000,2000);
+    
     %Generate the sectrogram and save gcf to fig
-    spectrogram(norm_y,hamming(floor(length(y)/4.5)),[],1024,fs,'yaxis');
+    spectrogram(y,500,[],F,fs,'yaxis');
+    colormap gray;
     fig = gcf;
+    
     %Configureations to turn off various features of the figure
     set(fig,'Visible','off');
     colorbar off;
     axis off;
     iptsetpref('ImshowBorder','tight');
+    
+    %Save the image to file 
     frame = getframe(fig);
-    frameGray = rgb2gray(frame.cdata);
-    imwrite(frameGray,strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'),'png')
+    imwrite(frame.cdata,strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'),'png')
+
 %     %Save the image and modify to ensure all spectrograms are of same
 %     %length
 %     saveas(fig,strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'),'png');
@@ -63,18 +67,22 @@ for d = 53:92
     
     %Settings to set position of figure axes
     axes('Units', 'normalized', 'Position', [0 0 1 1])
-    colormap gray;
+    F =linspace(1,1000,2000);
+    
     %Generate the sectrogram and save gcf to fig
-    spectrogram(norm_y,hamming(floor(length(y)/4.5)),[],1024,fs,'yaxis');
+    spectrogram(y,500,[],F,fs,'yaxis');
+    colormap gray;
     fig = gcf;
-    %Configureations to turn off various features of the figure
+    
+    %Configurations to turn off various features of the figure
     set(fig,'Visible','off');
     colorbar off;
     axis off;
     iptsetpref('ImshowBorder','tight');
+    
+    %Save the image to file
     frame = getframe(fig);
-    frameGray = rgb2gray(frame.cdata);
-    imwrite(frameGray,strcat('t2\images\Artifact\',dirListings(d).name(1:end-4),'.png'),'png')
+    imwrite(frame.cdata,strcat('t2\images\Artifact\',dirListings(d).name(1:end-4),'.png'),'png')
     %Save the image and modify to ensure all spectrograms are of same
 
 %     saveas(fig,strcat('t2\images\Artifact\',dirListings(d).name(1:end-4),'.png'),'png');
@@ -93,18 +101,22 @@ for d = 93:111
     
     %Settings to set position of figure axes
     axes('Units', 'normalized', 'Position', [0 0 1 1])
-    colormap gray;
+    F =linspace(1,1000,2000);
+    
     %Generate the sectrogram and save gcf to fig
-    spectrogram(norm_y,hamming(floor(length(y)/4.5)),[],1024,fs,'yaxis');
+    spectrogram(y,500,[],F,fs,'yaxis');
+    colormap gray;
     fig = gcf;
-    %Configureations to turn off various features of the figure
+    
+    %Configurations to turn off various features of the figure
     set(fig,'Visible','off');
     colorbar off;
     axis off;
     iptsetpref('ImshowBorder','tight');
+    
+    %Save the image to file
     frame = getframe(fig);
-    frameGray = rgb2gray(frame.cdata);
-    imwrite(frameGray,strcat('t2\images\Extrahls\',dirListings(d).name(1:end-4),'.png'),'png');
+    imwrite(frame.cadata,strcat('t2\images\Extrahls\',dirListings(d).name(1:end-4),'.png'),'png');
     %Save the image and modify to ensure all spectrograms are of same
     %length
 %     saveas(fig,strcat('t2\images\Extrahls\',dirListings(d).name(1:end-4),'.png'),'png');
@@ -123,18 +135,23 @@ for d = 112:145
     
     %Settings to set position of figure axes
     axes('Units', 'normalized', 'Position', [0 0 1 1])
-    colormap gray;
+    F =linspace(1,1000,2000);
+    
     %Generate the sectrogram and save gcf to fig
-    spectrogram(norm_y,hamming(floor(length(y)/4.5)),[],1024,fs,'yaxis');
+    spectrogram(y,500,[],F,fs,'yaxis');
+    colormap gray;
     fig = gcf;
+    
     %Configureations to turn off various features of the figure
     set(fig,'Visible','off');
     colorbar off;
     axis off;
     iptsetpref('ImshowBorder','tight');
+   
+    %Save the image to the file
     frame = getframe(fig);
-    frameGray = rgb2gray(frame.cdata);
-    imwrite(frameGray,strcat('t2\images\Murmur\',dirListings(d).name(1:end-4),'.png'),'png')
+    imwrite(frame.cdata,strcat('t2\images\Murmur\',dirListings(d).name(1:end-4),'.png'),'png')
+    
 %     %Save the image and modify to ensure all spectrograms are of same
 %     %length
 %     saveas(fig,strcat('t2\images\Murmur\',dirListings(d).name(1:end-4),'.png'),'png');
@@ -153,18 +170,22 @@ for d = 146:176
     
     %Settings to set position of figure axes
     axes('Units', 'normalized', 'Position', [0 0 1 1])
-    colormap gray;
+    F =linspace(1,1000,2000);
+    
     %Generate the sectrogram and save gcf to fig
-    spectrogram(norm_y,hamming(floor(length(y)/4.5)),[],1024,fs,'yaxis');
+    spectrogram(y,500,[],F,fs,'yaxis');
+    colormap gray;
     fig = gcf;
+    
     %Configureations to turn off various features of the figure
     set(fig,'Visible','off');
     colorbar off;
     axis off;
     iptsetpref('ImshowBorder','tight');
+    
+    %Save the image to the file
     frame = getframe(fig);
-    frameGray = rgb2gray(frame.cdata);
-    imwrite(frameGray,strcat('t2\images\Normal\',dirListings(d).name(1:end-4),'.png'),'png')
+    imwrite(frame.cdata,strcat('t2\images\Normal\',dirListings(d).name(1:end-4),'.png'),'png')
 %     %Save the image and modify to ensure all spectrograms are of same
 %     %length
 %     saveas(fig,strcat('t2\images\Normal\',dirListings(d).name(1:end-4),'.png'),'png');
