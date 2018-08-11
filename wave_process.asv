@@ -1,1 +1,0 @@
-    [y,fs] = audioread(strcat('t2\set_a\',dirListings(d).name));  
