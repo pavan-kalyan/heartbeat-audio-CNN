@@ -19,21 +19,29 @@ end
 
 F =linspace(1,1000,2000);
 
-% subplot(2,1,1);
+subplot(2,1,1);
 spectrogram(y,500,[],F,fs,'yaxis')
 colormap gray;
 fig = gcf;
 frame = getframe(fig);
 imwrite(frame.cdata,strcat('t','.png'),'png')
 
-% subplot(2,1,2);
-% [y2,fs2] = audioread(strcat('t2\set_a\','murmur__201108222258.wav'));
-% spectrogram(y2,500,[],F,fs2,'yaxis')
-% colormap gray;
+subplot(2,1,2);
+[y2,fs2] = audioread(strcat('t2y)\set_a\','murmur__201108222258.wav'));
+spectrogram(y2,500,[],F,fs2,'yaxis')
+colormap gray;
 
 x_dat = str2double(data{1,4}(368:391));
 %plot(y);
 %hold;
 %plot(x_dat,y(x_dat),'*','r');
 
-%% Test module for the segmation
+% %% Test module for the segmation
+% segment_index = ecgemowinmax(y,14000);
+% max_pos = find(segment_index);
+% init_pos = 0;
+% final_pos = 0;
+% while(i < size(max_pos))
+%     midpoint = max[i+1]+max
+%     segment
+% end
