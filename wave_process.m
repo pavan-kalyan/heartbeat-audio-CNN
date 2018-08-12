@@ -1,4 +1,6 @@
 clear;
+clc;
+clf('reset');
 %Wave segment will generate new data which has been segmented to aling S1
 %and S2 peaks in the audio data
 %wave_segment;
@@ -19,7 +21,7 @@ for k = 1:numel(categories)
    end
 end
 %% The the wave files are read, normalized and filtered and categorized images are produced
-
+disp('Generating Unlabelled data...');
 %For the unlabelled data
 for d = 1:52
     [y,fs] = audioread(strcat('set_a\',dirListings(d).name));  
@@ -27,28 +29,35 @@ for d = 1:52
     %The data is normalized using generalized min-max method.
     norm_y = ((y-min(y))/(max(y) - min(y)))*(1+1)-1;
     
-    %image = spectrogram(norm_y,256,224,1024,fs,'yaxis');
-    %Settings to set position of figure axes
+    %Settings to set position of figure axes 
     axes('Units', 'normalized', 'Position', [0 0 1 1])
-    colormap gray;
+    F =linspace(1,1000,2000);
+    
     %Generate the sectrogram and save gcf to fig
-    spectrogram(norm_y,length(norm_y),[],1024,fs,'yaxis');
+    spectrogram(y,500,[],F,fs,'yaxis');
+    colormap gray;
     fig = gcf;
+    
     %Configureations to turn off various features of the figure
     set(fig,'Visible','off');
     colorbar off;
     axis off;
     iptsetpref('ImshowBorder','tight');
     
-    %Save the image and modify to ensure all spectrograms are of same
-    %length
-    saveas(fig,strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'),'png');
-    image = imread(strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'));
-    image = image(:,mod(0:len-1, numel(image(1,:))) + 1); %repeat audio to length
-    imwrite(image,strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'),'png');
+    %Save the image to file 
+    frame = getframe(fig);
+    imwrite(frame.cdata,strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'),'png')
+
+%     %Save the image and modify to ensure all spectrograms are of same
+%     %length
+%     saveas(fig,strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'),'png');
+%     image = imread(strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'));
+%     %image = image(:,mod(0:len-1, numel(image(1,:))) + 1); %repeat audio to length
+%     image = imresize(image,0.25);
+%     imwrite(image,strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'),'png');
     
 end
-
+disp('Generating Artifact data...');
 %For the artifact data
 for d = 53:92
     [y,fs] = audioread(strcat('set_a\',dirListings(d).name));  
@@ -58,24 +67,31 @@ for d = 53:92
     
     %Settings to set position of figure axes
     axes('Units', 'normalized', 'Position', [0 0 1 1])
-    colormap gray;
+    F =linspace(1,1000,2000);
+    
     %Generate the sectrogram and save gcf to fig
-    spectrogram(norm_y,length(norm_y),[],1024,fs,'yaxis');
+    spectrogram(y,500,[],F,fs,'yaxis');
+    colormap gray;
     fig = gcf;
-    %Configureations to turn off various features of the figure
+    
+    %Configurations to turn off various features of the figure
     set(fig,'Visible','off');
     colorbar off;
     axis off;
     iptsetpref('ImshowBorder','tight');
     
+    %Save the image to file
+    frame = getframe(fig);
+    imwrite(frame.cdata,strcat('t2\images\Artifact\',dirListings(d).name(1:end-4),'.png'),'png')
     %Save the image and modify to ensure all spectrograms are of same
-    %length
-    saveas(fig,strcat('t2\images\Artifact\',dirListings(d).name(1:end-4),'.png'),'png');
-    image = imread(strcat('t2\images\Artifact\',dirListings(d).name(1:end-4),'.png'));
-    image = image(:,mod(0:len-1, numel(image(1,:))) + 1); %repeat audio to length
-    imwrite(image,strcat('t2\images\Artifact\',dirListings(d).name(1:end-4),'.png'),'png');
-end
 
+%     saveas(fig,strcat('t2\images\Artifact\',dirListings(d).name(1:end-4),'.png'),'png');
+%     image = imread(strcat('t2\images\Artifact\',dirListings(d).name(1:end-4),'.png'));
+%     %image = image(:,mod(0:len-1, numel(image(1,:))) + 1); %repeat audio to length
+%     image = imresize(image,0.25);
+%     imwrite(image,strcat('t2\images\Artifact\',dirListings(d).name(1:end-4),'.png'),'png');
+end
+disp('Generating Extrahls data...');
 %For the extrahls data
 for d = 93:111
     [y,fs] = audioread(strcat('set_a\',dirListings(d).name));  
@@ -85,24 +101,31 @@ for d = 93:111
     
     %Settings to set position of figure axes
     axes('Units', 'normalized', 'Position', [0 0 1 1])
-    colormap gray;
+    F =linspace(1,1000,2000);
+    
     %Generate the sectrogram and save gcf to fig
-    spectrogram(norm_y,length(norm_y),[],1024,fs,'yaxis');
+    spectrogram(y,500,[],F,fs,'yaxis');
+    colormap gray;
     fig = gcf;
-    %Configureations to turn off various features of the figure
+    
+    %Configurations to turn off various features of the figure
     set(fig,'Visible','off');
     colorbar off;
     axis off;
     iptsetpref('ImshowBorder','tight');
     
+    %Save the image to file
+    frame = getframe(fig);
+    imwrite(frame.cadata,strcat('t2\images\Extrahls\',dirListings(d).name(1:end-4),'.png'),'png');
     %Save the image and modify to ensure all spectrograms are of same
     %length
-    saveas(fig,strcat('t2\images\Extrahls\',dirListings(d).name(1:end-4),'.png'),'png');
-    image = imread(strcat('t2\images\Extrahls\',dirListings(d).name(1:end-4),'.png'));
-    image = image(:,mod(0:len-1, numel(image(1,:))) + 1); %repeat audio to length
-    imwrite(image,strcat('t2\images\Extrahls\',dirListings(d).name(1:end-4),'.png'),'png');
+%     saveas(fig,strcat('t2\images\Extrahls\',dirListings(d).name(1:end-4),'.png'),'png');
+%     image = imread(strcat('t2\images\Extrahls\',dirListings(d).name(1:end-4),'.png'));
+%     %image = image(:,mod(0:len-1, numel(image(1,:))) + 1); %repeat audio to length
+%     image = imresize(image,0.25);
+%     imwrite(image,strcat('t2\images\Extrahls\',dirListings(d).name(1:end-4),'.png'),'png');
 end
-
+disp('Generating Murmur data...');
 %For the Murmur data
 for d = 112:145
     [y,fs] = audioread(strcat('set_a\',dirListings(d).name));  
@@ -112,24 +135,32 @@ for d = 112:145
     
     %Settings to set position of figure axes
     axes('Units', 'normalized', 'Position', [0 0 1 1])
-    colormap gray;
+    F =linspace(1,1000,2000);
+    
     %Generate the sectrogram and save gcf to fig
-    spectrogram(norm_y,length(norm_y),[],1024,fs,'yaxis');
+    spectrogram(y,500,[],F,fs,'yaxis');
+    colormap gray;
     fig = gcf;
+    
     %Configureations to turn off various features of the figure
     set(fig,'Visible','off');
     colorbar off;
     axis off;
     iptsetpref('ImshowBorder','tight');
+   
+    %Save the image to the file
+    frame = getframe(fig);
+    imwrite(frame.cdata,strcat('t2\images\Murmur\',dirListings(d).name(1:end-4),'.png'),'png')
     
-    %Save the image and modify to ensure all spectrograms are of same
-    %length
-    saveas(fig,strcat('t2\images\Murmur\',dirListings(d).name(1:end-4),'.png'),'png');
-    image = imread(strcat('t2\images\Murmur\',dirListings(d).name(1:end-4),'.png'));
-    image = image(:,mod(0:len-1, numel(image(1,:))) + 1); %repeat audio to length
-    imwrite(image,strcat('t2\images\Murmur\',dirListings(d).name(1:end-4),'.png'),'png');
+%     %Save the image and modify to ensure all spectrograms are of same
+%     %length
+%     saveas(fig,strcat('t2\images\Murmur\',dirListings(d).name(1:end-4),'.png'),'png');
+%     image = imread(strcat('t2\images\Murmur\',dirListings(d).name(1:end-4),'.png'));
+%     %image = image(:,mod(0:len-1, numel(image(1,:))) + 1); %repeat audio to length
+%     image = imresize(image,0.25);
+%     imwrite(image,strcat('t2\images\Murmur\',dirListings(d).name(1:end-4),'.png'),'png');
 end
-
+disp('Generating Normal data...');
 %For the Normal data
 for d = 146:176
     [y,fs] = audioread(strcat('set_a\',dirListings(d).name));  
@@ -139,22 +170,30 @@ for d = 146:176
     
     %Settings to set position of figure axes
     axes('Units', 'normalized', 'Position', [0 0 1 1])
-    colormap gray;
+    F =linspace(1,1000,2000);
+    
     %Generate the sectrogram and save gcf to fig
-    spectrogram(norm_y,length(norm_y),[],1024,fs,'yaxis');
+    spectrogram(y,500,[],F,fs,'yaxis');
+    colormap gray;
     fig = gcf;
+    
     %Configureations to turn off various features of the figure
     set(fig,'Visible','off');
     colorbar off;
     axis off;
     iptsetpref('ImshowBorder','tight');
     
-    %Save the image and modify to ensure all spectrograms are of same
-    %length
-    saveas(fig,strcat('t2\images\Normal\',dirListings(d).name(1:end-4),'.png'),'png');
-    image = imread(strcat('t2\images\Normal\',dirListings(d).name(1:end-4),'.png'));
-    image = image(:,mod(0:len-1, numel(image(1,:))) + 1); %repeat audio to length
-    imwrite(image,strcat('t2\images\Normal\',dirListings(d).name(1:end-4),'.png'),'png');
+    %Save the image to the file
+    frame = getframe(fig);
+    imwrite(frame.cdata,strcat('t2\images\Normal\',dirListings(d).name(1:end-4),'.png'),'png')
+%     %Save the image and modify to ensure all spectrograms are of same
+%     %length
+%     saveas(fig,strcat('t2\images\Normal\',dirListings(d).name(1:end-4),'.png'),'png');
+%     image = imread(strcat('t2\images\Normal\',dirListings(d).name(1:end-4),'.png'));
+%     %image = image(:,mod(0:len-1, numel(image(1,:))) + 1); %repeat audio
+%     to length
+%     image = imresize(image,0.25);
+%     imwrite(image,strcat('t2\images\Normal\',dirListings(d).name(1:end-4),'.png'),'png');
 end
 %% Loading and processing a bit quicker.
 rootFolder = fullfile('images');
