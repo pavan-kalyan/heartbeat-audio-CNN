@@ -19,14 +19,23 @@ categories ={'Artifact','Extrahls','Murmur','Normal','Unlabelled'};
 axes('Units', 'normalized', 'Position', [0 0 1 1])
 F =linspace(1,600,2000);
 
-subplot(2,1,1);
+%resubplot(2,1,1);
 spectrogram(y,500,[],F,fs,'yaxis')
 colormap gray;
+fig = gcf;
+%Configurations to turn off various features of the figure
+set(fig,'Visible','on');
+colorbar off;
+axis off;
+iptsetpref('ImshowBorder','tight');
 
-subplot(2,1,2);
-[y2,fs2] = audioread(strcat('Test_audio.aac'));
-spectrogram(y2,500,[],F,fs2,'yaxis')
-colormap gray;
+    
+frame = getframe(fig);
+imwrite(frame.cdata,strcat('test','.png'),'png');
+% subplot(2,1,2);
+% [y2,fs2] = audioread(strcat('Test_audio.aac'));
+% spectrogram(y2,500,[],F,fs2,'yaxis')
+% colormap gray;
 
 % imwrite(frame.cdata,strcat('t','.png'),'png')
 % a = imread('t.png');

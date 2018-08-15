@@ -39,7 +39,7 @@ for d = 1:52
     colormap gray;
     fig = gcf;
     
-    %Configurations to turn off various features of the figure
+    %Configureations to turn off various features of the figure
     set(fig,'Visible','off');
     colorbar off;
     axis off;
