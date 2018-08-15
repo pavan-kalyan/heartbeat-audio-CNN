@@ -1,5 +1,5 @@
 layers = [
-    imageInputLayer([525 700 1])  
+    imageInputLayer([525 700 3])  
     convolution2dLayer(3,16,'Padding',1)
     batchNormalizationLayer
     reluLayer    

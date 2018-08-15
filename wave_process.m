@@ -116,7 +116,7 @@ for d = 93:111
     
     %Save the image to file
     frame = getframe(fig);
-    imwrite(frame.cadata,strcat('t2\images\Extrahls\',dirListings(d).name(1:end-4),'.png'),'png');
+    imwrite(frame.cdata,strcat('t2\images\Extrahls\',dirListings(d).name(1:end-4),'.png'),'png');
     %Save the image and modify to ensure all spectrograms are of same
     %length
 %     saveas(fig,strcat('t2\images\Extrahls\',dirListings(d).name(1:end-4),'.png'),'png');
