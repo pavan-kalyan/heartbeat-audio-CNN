@@ -25,7 +25,7 @@ end
 disp('Generating Unlabelled data...');
 %For the unlabelled data
 for d = 1:52
-    [y,fs] = audioread(strcat('t2\set_a\',dirListings(d).name));  
+    [y,fs] = audioread(strcat('set_a/',dirListings(d).name));  
     
     %The data is normalized using generalized min-max method.
     norm_y = ((y-min(y))/(max(y) - min(y)))*(1+1)-1;
@@ -47,7 +47,7 @@ for d = 1:52
     
     %Save the image to file 
     frame = getframe(fig);
-    imwrite(frame.cdata,strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'),'png')
+    imwrite(frame.cdata,strcat('t2/images/Unlabelled/',dirListings(d).name(1:end-4),'.png'),'png')
 
 %     %Save the image and modify to ensure all spectrograms are of same
 %     %length
@@ -63,7 +63,7 @@ end
 disp('Generating Artifact data...');
 %For the artifact data
 for d = 53:92
-    [y,fs] = audioread(strcat('t2\set_a\',dirListings(d).name));  
+    [y,fs] = audioread(strcat('set_a/',dirListings(d).name));  
     
     %The data is normalized using generalized min-max method.
     norm_y = ((y-min(y))/(max(y) - min(y)))*(1+1)-1;
@@ -85,7 +85,7 @@ for d = 53:92
     
     %Save the image to file
     frame = getframe(fig);
-    imwrite(frame.cdata,strcat('t2\images\Artifact\',dirListings(d).name(1:end-4),'.png'),'png')
+    imwrite(frame.cdata,strcat('t2/images/Artifact/',dirListings(d).name(1:end-4),'.png'),'png')
     %Save the image and modify to ensure all spectrograms are of same
 
 %     saveas(fig,strcat('t2\images\Artifact\',dirListings(d).name(1:end-4),'.png'),'png');
@@ -99,7 +99,7 @@ end
 disp('Generating Extrahls data...');
 %For the extrahls data
 for d = 93:111
-    [y,fs] = audioread(strcat('t2\set_a\',dirListings(d).name));  
+    [y,fs] = audioread(strcat('set_a/',dirListings(d).name));  
     
     %The data is normalized using generalized min-max method.
     norm_y = ((y-min(y))/(max(y) - min(y)))*(1+1)-1;
@@ -121,7 +121,7 @@ for d = 93:111
     
     %Save the image to file
     frame = getframe(fig);
-    imwrite(frame.cdata,strcat('t2\images\Extrahls\',dirListings(d).name(1:end-4),'.png'),'png');
+    imwrite(frame.cdata,strcat('t2/images/Extrahls/',dirListings(d).name(1:end-4),'.png'),'png');
     %Save the image and modify to ensure all spectrograms are of same
     %length
 %     saveas(fig,strcat('t2\images\Extrahls\',dirListings(d).name(1:end-4),'.png'),'png');
@@ -135,7 +135,7 @@ end
 disp('Generating Murmur data...');
 %For the Murmur data
 for d = 112:145
-    [y,fs] = audioread(strcat('t2\set_a\',dirListings(d).name));  
+    [y,fs] = audioread(strcat('set_a/',dirListings(d).name));  
     
     %The data is normalized using generalized min-max method.
     norm_y = ((y-min(y))/(max(y) - min(y)))*(1+1)-1;
@@ -157,7 +157,7 @@ for d = 112:145
    
     %Save the image to the file
     frame = getframe(fig);
-    imwrite(frame.cdata,strcat('t2\images\Murmur\',dirListings(d).name(1:end-4),'.png'),'png')
+    imwrite(frame.cdata,strcat('t2/images/Murmur/',dirListings(d).name(1:end-4),'.png'),'png')
     
 %     %Save the image and modify to ensure all spectrograms are of same
 %     %length
@@ -172,7 +172,7 @@ end
 disp('Generating Normal data...');
 %For the Normal data
 for d = 146:176
-    [y,fs] = audioread(strcat('t2\set_a\',dirListings(d).name));  
+    [y,fs] = audioread(strcat('set_a/',dirListings(d).name));  
     
     %The data is normalized using generalized min-max method.
     norm_y = ((y-min(y))/(max(y) - min(y)))*(1+1)-1;
@@ -194,7 +194,7 @@ for d = 146:176
     
     %Save the image to the file
     frame = getframe(fig);
-    imwrite(frame.cdata,strcat('t2\images\Normal\',dirListings(d).name(1:end-4),'.png'),'png')
+    imwrite(frame.cdata,strcat('t2/images/Normal/',dirListings(d).name(1:end-4),'.png'),'png')
 %     %Save the image and modify to ensure all spectrograms are of same
 %     %length
 %     saveas(fig,strcat('t2\images\Normal\',dirListings(d).name(1:end-4),'.png'),'png');
