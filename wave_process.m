@@ -47,6 +47,8 @@ for d = 1:52
     
     %Save the image to file 
     frame = getframe(fig);
+    I = frame.cdata;
+    I = imresize(I,[525 700]);
     imwrite(frame.cdata,strcat('t2/images/Unlabelled/',dirListings(d).name(1:end-4),'.png'),'png')
 
 %     %Save the image and modify to ensure all spectrograms are of same
@@ -85,6 +87,8 @@ for d = 53:92
     
     %Save the image to file
     frame = getframe(fig);
+    I = frame.cdata;
+    I = imresize(I,[525 700]);
     imwrite(frame.cdata,strcat('t2/images/Artifact/',dirListings(d).name(1:end-4),'.png'),'png')
     %Save the image and modify to ensure all spectrograms are of same
 
@@ -121,6 +125,8 @@ for d = 93:111
     
     %Save the image to file
     frame = getframe(fig);
+    I = frame.cdata;
+    I = imresize(I,[525 700]);
     imwrite(frame.cdata,strcat('t2/images/Extrahls/',dirListings(d).name(1:end-4),'.png'),'png');
     %Save the image and modify to ensure all spectrograms are of same
     %length
@@ -157,6 +163,8 @@ for d = 112:145
    
     %Save the image to the file
     frame = getframe(fig);
+    I = frame.cdata;
+    I = imresize(I,[525 700]);
     imwrite(frame.cdata,strcat('t2/images/Murmur/',dirListings(d).name(1:end-4),'.png'),'png')
     
 %     %Save the image and modify to ensure all spectrograms are of same
@@ -195,6 +203,8 @@ for d = 146:176
     %Save the image to the file
     frame = getframe(fig);
     imwrite(frame.cdata,strcat('t2/images/Normal/',dirListings(d).name(1:end-4),'.png'),'png')
+    I = frame.cdata;
+    I = imresize(I,[525 700]);
 %     %Save the image and modify to ensure all spectrograms are of same
 %     %length
 %     saveas(fig,strcat('t2\images\Normal\',dirListings(d).name(1:end-4),'.png'),'png');

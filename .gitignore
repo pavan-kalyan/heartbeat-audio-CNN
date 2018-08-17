@@ -1,5 +1,5 @@
 *.png
 test.jpg
 spec_test.m
-spec_test.asv
+*.asv
 *.wav
