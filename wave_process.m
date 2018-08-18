@@ -228,13 +228,12 @@ tb1 = countEachLabel(trainData);
 %Determine the minimum no of images
 minSetCount = min(tb1{:,2});
 
-% Use splitEachLabel method to trim the set.
-%[imd1,imd2,imd3,imd4] = splitEachLabel(trainData, minSetCount, 'randomize');
-[test_data,trainData] = splitEachLabel(trainData,4);
+%Split the data into testData and trainData
+[testData,trainData] = splitEachLabel(trainData,4);
 
 
 %Count the number of test data
-countEachLabel(test_data)
+countEachLabel(testData)
 
 %Count the number of training data
 countEachLabel(trainData)
