@@ -1,4 +1,3 @@
-clear;
 clf;
 close all hidden;
 
