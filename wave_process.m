@@ -217,7 +217,7 @@ for d = 146:176
     clf;
 end
 %% Loading and processing a bit quicker.
-rootFolder = fullfile('t2\images');
+rootFolder = fullfile('t2','images');
 
 %Train with all data except the unlabelled stuff
 trainData = imageDatastore(fullfile(rootFolder, categories(1:4)), 'LabelSource', 'foldernames');
