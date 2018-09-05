@@ -10,8 +10,7 @@ dirListings = dir(filePattern);
 dir_len = length(dirListings);
 fileID = fopen('set_a_timing.csv');
 data = textscan(fileID,'%s %s %s %s','Delimiter',',');
-categories ={'Artifact','Extrahls','Murmur','Normal','Unlabelled'};
-savedir = {'Artifact','Test_Artifact','Extrahls','Test_Extrahls','Murmur','Test_Murmur','Normal','Test_Normal','Unlabelled'};
+categories ={'Artifact','Extrahls','Murmur','Normal','Test_Artifact','Test_Extrahls','Test_Murmur','Test_Normal','Unlabelled'};
 len = 3099;
 %% Here you can modify the number of test files for training
 test_artifact = 7;
@@ -23,7 +22,7 @@ search_dir = fullfile('t2','images');
 mkdir(search_dir);
 for k = 1:numel(categories)
    if(exist(search_dir,'dir') == 7)
-        mkdir(fullfile('t2','images',char(savedir(k))));
+        mkdir(fullfile('t2','images',char(categories(k))));
    end
 end
 %% The the wave files are read, normalized and filtered and categorized images are produced
@@ -214,7 +213,7 @@ rootFolder = fullfile('t2','images');
 
 %Train with all data except the unlabelled stuff
 trainData = imageDatastore(fullfile(rootFolder, categories(1:4)), 'LabelSource', 'foldernames');
-
+testData = imageDatastore(fullfile(rootFolder, categories(5:8)), 'LabelSource', 'foldernames');
 %Show a summary of each labelr
 tb1 = countEachLabel(trainData);
 
@@ -222,7 +221,7 @@ tb1 = countEachLabel(trainData);
 minSetCount = min(tb1{:,2});
 
 %Split the data into testData and trainData
-[testData,trainData] = splitEachLabel(trainData,0.3);
+%[testData,trainData] = splitEachLabel(trainData,0.3);
 
 
 %Count the number of test data
