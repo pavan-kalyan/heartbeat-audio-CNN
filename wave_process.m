@@ -11,13 +11,19 @@ dir_len = length(dirListings);
 fileID = fopen('set_a_timing.csv');
 data = textscan(fileID,'%s %s %s %s','Delimiter',',');
 categories ={'Artifact','Extrahls','Murmur','Normal','Unlabelled'};
+savedir = {'Artifact','Test_Artifact','Extrahls','Test_Extrahls','Murmur','Test_Murmur','Normal','Test_Normal','Unlabelled'};
 len = 3099;
+%% Here you can modify the number of test files for training
+test_artifact = 7;
+test_extrahls = 7;
+test_murmur = 7;
+test_normal = 7;
 %% Generate the relevant directory for saving the outputs the files
 search_dir = fullfile('t2','images');
 mkdir(search_dir);
 for k = 1:numel(categories)
    if(exist(search_dir,'dir') == 7)
-        mkdir(fullfile('t2','images',char(categories(k))));
+        mkdir(fullfile('t2','images',char(savedir(k))));
    end
 end
 %% The the wave files are read, normalized and filtered and categorized images are produced
@@ -26,7 +32,7 @@ root_input = fullfile('t2','set_a');
 root_output = fullfile('t2','images');
 %For the unlabelled data
 for d = 1:52
-    [y,fs] = audioread(fullfile(root_input,dirListings(d).name));  
+    [y,fs] = audioread(fullfile(root_input,dirListings(d).name));
     
     %The data is normalized using generalized min-max method.
     norm_y = ((y-min(y))/(max(y) - min(y)))*(1+1)-1;
@@ -51,17 +57,8 @@ for d = 1:52
     I = frame.cdata;
     I = imresize(I,[525 700]);
     imwrite(I,strcat(fullfile(root_output,'Unlabelled',dirListings(d).name(1:end-4)),'.png'),'png');
-
-%     %Save the image and modify to ensure all spectrograms are of same
-%     %length
-%     saveas(fig,strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'),'png');
-%     image = imread(strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'));
-%     %image = image(:,mod(0:len-1, numel(image(1,:))) + 1); %repeat audio to length
-%     image = imresize(image,0.25);
-%     imwrite(image,strcat('t2\images\Unlabelled\',dirListings(d).name(1:end-4),'.png'),'png');
     close all hidden;
     clf;
-    
 end
 disp('Generating Artifact data...');
 %For the artifact data
@@ -90,16 +87,16 @@ for d = 53:92
     frame = getframe(fig);
     I = frame.cdata;
     I = imresize(I,[525 700]);
-    imwrite(I,strcat(fullfile(root_output,'Artifact',dirListings(d).name(1:end-4)),'.png'),'png');
-    %Save the image and modify to ensure all spectrograms are of same
-
-%     saveas(fig,strcat('t2\images\Artifact\',dirListings(d).name(1:end-4),'.png'),'png');
-%     image = imread(strcat('t2\images\Artifact\',dirListings(d).name(1:end-4),'.png'));
-%     %image = image(:,mod(0:len-1, numel(image(1,:))) + 1); %repeat audio to length
-%     image = imresize(image,0.25);
-%     imwrite(image,strcat('t2\images\Artifact\',dirListings(d).name(1:end-4),'.png'),'png');
-    close all hidden;
-    clf;
+    
+    if(d <= test_artifact)
+        imwrite(I,strcat(fullfile(root_output,'Test_Artifact',dirListings(d).name(1:end-4)),'.png'),'png');
+        close all hidden;
+        clf;
+    else
+        imwrite(I,strcat(fullfile(root_output,'Artifact',dirListings(d).name(1:end-4)),'.png'),'png');
+        close all hidden;
+        clf;
+    end
 end
 disp('Generating Extrahls data...');
 %For the extrahls data
@@ -128,15 +125,15 @@ for d = 93:111
     frame = getframe(fig);
     I = frame.cdata;
     I = imresize(I,[525 700]);
-    imwrite(I,strcat(fullfile(root_output,'Extrahls',dirListings(d).name(1:end-4)),'.png'),'png');    %Save the image and modify to ensure all spectrograms are of same
-    %length
-%     saveas(fig,strcat('t2\images\Extrahls\',dirListings(d).name(1:end-4),'.png'),'png');
-%     image = imread(strcat('t2\images\Extrahls\',dirListings(d).name(1:end-4),'.png'));
-%     %image = image(:,mod(0:len-1, numel(image(1,:))) + 1); %repeat audio to length
-%     image = imresize(image,0.25);
-%     imwrite(image,strcat('t2\images\Extrahls\',dirListings(d).name(1:end-4),'.png'),'png');   
-    close all hidden;
-    clf;
+    if(d <= test_extrahls)
+        imwrite(I,strcat(fullfile(root_output,'Test_Extrahls',dirListings(d).name(1:end-4)),'.png'),'png');
+        close all hidden;
+        clf;
+    else
+        imwrite(I,strcat(fullfile(root_output,'Extrahls',dirListings(d).name(1:end-4)),'.png'),'png');
+        close all hidden;
+        clf;
+    end
 end
 disp('Generating Murmur data...');
 %For the Murmur data
@@ -165,17 +162,15 @@ for d = 112:145
     frame = getframe(fig);
     I = frame.cdata;
     I = imresize(I,[525 700]);
-    imwrite(I,strcat(fullfile(root_output,'Murmur',dirListings(d).name(1:end-4)),'.png'),'png');
-    
-%     %Save the image and modify to ensure all spectrograms are of same
-%     %length
-%     saveas(fig,strcat('t2\images\Murmur\',dirListings(d).name(1:end-4),'.png'),'png');
-%     image = imread(strcat('t2\images\Murmur\',dirListings(d).name(1:end-4),'.png'));
-%     %image = image(:,mod(0:len-1, numel(image(1,:))) + 1); %repeat audio to length
-%     image = imresize(image,0.25);
-%     imwrite(image,strcat('t2\images\Murmur\',dirListings(d).name(1:end-4),'.png'),'png');
-    close all hidden;
-    clf;
+    if(d <= test_murmur)
+        imwrite(I,strcat(fullfile(root_output,'Test_Murmur',dirListings(d).name(1:end-4)),'.png'),'png');
+        close all hidden;
+        clf;
+    else
+        imwrite(I,strcat(fullfile(root_output,'Murmur',dirListings(d).name(1:end-4)),'.png'),'png');
+        close all hidden;
+        clf;
+    end
 end
 disp('Generating Normal data...');
 %For the Normal data
@@ -204,17 +199,15 @@ for d = 146:176
     frame = getframe(fig);
     I = frame.cdata;
     I = imresize(I,[525 700]);
-    imwrite(I,strcat(fullfile(root_output,'Normal',dirListings(d).name(1:end-4)),'.png'),'png');
-%     %Save the image and modify to ensure all spectrograms are of same
-%     %length
-%     saveas(fig,strcat('t2\images\Normal\',dirListings(d).name(1:end-4),'.png'),'png');
-%     image = imread(strcat('t2\images\Normal\',dirListings(d).name(1:end-4),'.png'));
-%     %image = image(:,mod(0:len-1, numel(image(1,:))) + 1); %repeat audio
-%     to length
-%     image = imresize(image,0.25);
-%     imwrite(image,strcat('t2\images\Normal\',dirListings(d).name(1:end-4),'.png'),'png');
-    close all hidden;
-    clf;
+    if(d <= test_normal)
+        imwrite(I,strcat(fullfile(root_output,'Test_Normal',dirListings(d).name(1:end-4)),'.png'),'png');
+        close all hidden;
+        clf;
+    else
+        imwrite(I,strcat(fullfile(root_output,'Normal',dirListings(d).name(1:end-4)),'.png'),'png');
+        close all hidden;
+        clf;
+    end
 end
 %% Loading and processing a bit quicker.
 rootFolder = fullfile('t2','images');
