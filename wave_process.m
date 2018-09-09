@@ -58,7 +58,7 @@ for d = 1:52
     imwrite(I,strcat(fullfile(root_output,'Unlabelled',dirListings(d).name(1:end-4)),'.png'),'png');
     close all hidden;
     clf;
-end
+end 
 disp('Generating Artifact data...');
 %For the artifact data
 for d = 53:92
@@ -87,7 +87,7 @@ for d = 53:92
     I = frame.cdata;
     I = imresize(I,[525 700]);
     
-    if(d <= test_artifact)
+    if(d <= 52+test_artifact)
         imwrite(I,strcat(fullfile(root_output,'Test_Artifact',dirListings(d).name(1:end-4)),'.png'),'png');
         close all hidden;
         clf;
@@ -124,7 +124,7 @@ for d = 93:111
     frame = getframe(fig);
     I = frame.cdata;
     I = imresize(I,[525 700]);
-    if(d <= test_extrahls)
+    if(d <= 92+test_extrahls)
         imwrite(I,strcat(fullfile(root_output,'Test_Extrahls',dirListings(d).name(1:end-4)),'.png'),'png');
         close all hidden;
         clf;
@@ -161,7 +161,7 @@ for d = 112:145
     frame = getframe(fig);
     I = frame.cdata;
     I = imresize(I,[525 700]);
-    if(d <= test_murmur)
+    if(d <= 111+test_murmur)
         imwrite(I,strcat(fullfile(root_output,'Test_Murmur',dirListings(d).name(1:end-4)),'.png'),'png');
         close all hidden;
         clf;
@@ -198,7 +198,7 @@ for d = 146:176
     frame = getframe(fig);
     I = frame.cdata;
     I = imresize(I,[525 700]);
-    if(d <= test_normal)
+    if(d <= 145+test_normal)
         imwrite(I,strcat(fullfile(root_output,'Test_Normal',dirListings(d).name(1:end-4)),'.png'),'png');
         close all hidden;
         clf;
