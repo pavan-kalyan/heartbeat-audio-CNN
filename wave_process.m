@@ -19,6 +19,7 @@ test_murmur = 7;
 test_normal = 7;
 %% Generate the relevant directory for saving the outputs the files
 search_dir = fullfile('t2','images');
+rmdir(search_dir,'s');
 mkdir(search_dir);
 for k = 1:numel(categories)
    if(exist(search_dir,'dir') == 7)
