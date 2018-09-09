@@ -221,7 +221,7 @@ tb1 = countEachLabel(trainData);
 minSetCount = min(tb1{:,2});
 
 %Split the data into testData and trainData
-%[testData,trainData] = splitEachLabel(trainData,0.3);
+[trainData,testData] = splitEachLabel(trainData,15);
 
 
 %Count the number of test data
