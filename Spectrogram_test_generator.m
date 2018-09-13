@@ -1,9 +1,9 @@
 clf;
 close all hidden;
 
-[y,fs] = audioread('heartbeat.mp4');
+[y,fs] = audioread('Test_audio.aac');
 axes('Units', 'normalized', 'Position', [0 0 1 1])
-F =linspace(1,1000,2000);
+F =linspace(1,600,1000);
     
 %Generate the sectrogram and save gcf to fig
 spectrogram(y,500,[],F,fs,'yaxis');

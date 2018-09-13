@@ -13,10 +13,10 @@ data = textscan(fileID,'%s %s %s %s','Delimiter',',');
 categories ={'Artifact','Extrahls','Murmur','Normal','Test_Artifact','Test_Extrahls','Test_Murmur','Test_Normal','Unlabelled'};
 len = 3099;
 %% Here you can modify the number of test files for training
-test_artifact = 7;
-test_extrahls = 7;
-test_murmur = 7;
-test_normal = 7;
+test_artifact = 26;
+test_extrahls = 26;
+test_murmur = 26;
+test_normal = 26;
 %% Generate the relevant directory for saving the outputs the files
 search_dir = fullfile('t2','images');
 rmdir(search_dir,'s');
@@ -101,7 +101,7 @@ for d = 53:92
 end
 disp('Generating Extrahls data...');
 %For the extrahls data
-for d = 93:111
+for d = 93:119
     [y,fs] = audioread(fullfile(root_input,dirListings(d).name));  
     
     %The data is normalized using generalized min-max method.
@@ -138,7 +138,7 @@ for d = 93:111
 end
 disp('Generating Murmur data...');
 %For the Murmur data
-for d = 112:145
+for d = 120:153
     [y,fs] = audioread(fullfile(root_input,dirListings(d).name));  
     
     %The data is normalized using generalized min-max method.
@@ -163,7 +163,7 @@ for d = 112:145
     frame = getframe(fig);
     I = frame.cdata;
     I = imresize(I,[525 700]);
-    if(d >= 112+test_murmur)
+    if(d >= 120+test_murmur)
         imwrite(I,strcat(fullfile(root_output,'Test_Murmur',dirListings(d).name(1:end-4)),'.png'),'png');
         close all hidden;
         clf;
@@ -175,7 +175,7 @@ for d = 112:145
 end
 disp('Generating Normal data...');
 %For the Normal data
-for d = 146:176
+for d = 154:184
     [y,fs] = audioread(fullfile(root_input,dirListings(d).name));  
     
     %The data is normalized using generalized min-max method.
@@ -200,7 +200,7 @@ for d = 146:176
     frame = getframe(fig);
     I = frame.cdata;
     I = imresize(I,[525 700]);
-    if(d >= 146+test_normal)
+    if(d >= 154+test_normal)
         imwrite(I,strcat(fullfile(root_output,'Test_Normal',dirListings(d).name(1:end-4)),'.png'),'png');
         close all hidden;
         clf;
@@ -223,13 +223,30 @@ tb1 = countEachLabel(trainData);
 minSetCount = min(tb1{:,2});
 
 %Split the data into testData and trainData
-[trainData,testData] = splitEachLabel(trainData,15);
+%[trainData,testData] = splitEachLabel(trainData,15);
 
 
 %Count the number of test data
-countEachLabel(testData)
+tb2 = countEachLabel(testData)
+
+%Modifying the labels for the trainData
+total = sum(tb2{1:4,2});
+for i = 1:total
+    if(testData.Labels(i) == "Test_Artifact")
+        testData.Labels(i) = "Artifact";
+    elseif(testData.Labels(i) == "Test_Extrahls")
+        testData.Labels(i) = "Extrahls";
+    elseif(testData.Labels(i) == "Test_Murmur")
+        testData.Labels(i) = "Murmur";
+    elseif(testData.Labels(i) == "Test_Normal")
+        testData.Labels(i) = "Normal";
+    end
+        
+end
+
 
 %Count the number of training data
 countEachLabel(trainData)
+
 
 
