@@ -37,10 +37,10 @@ for k = 1:numel(categories)
 end
 
 %% Setting thresholds for the number of samples to be takes as training data
-training_artifact = 7;
-training_extrahls = 7;
-training_murmur = 7;
-training_normal = 7;
+training_artifact = 21;
+training_extrahls = 21;
+training_murmur = 21;
+training_normal = 21;
 
 %% Generate the spectrograms and sort into appropriate files
 counter = zeros(4,1);
@@ -243,12 +243,25 @@ tb1 = countEachLabel(trainData);
 %Determine the minimum no of images
 minSetCount = min(tb1{:,2});
 
-%Split the data into testData and trainData
-%[testData,trainData] = splitEachLabel(trainData,0.3);
-
-
 %Count the number of test data
-countEachLabel(testData)
+tb2 = countEachLabel(testData);
+
+%Modifying the labels for the trainData
+total = sum(tb2{1:4,2});
+for i = 1:total
+    if(testData.Labels(i) == "Test_Artifact")
+        testData.Labels(i) = "Artifact";
+    elseif(testData.Labels(i) == "Test_Extrahls")
+        testData.Labels(i) = "Extrahls";
+    elseif(testData.Labels(i) == "Test_Murmur")
+        testData.Labels(i) = "Murmur";
+    elseif(testData.Labels(i) == "Test_Normal")
+        testData.Labels(i) = "Normal";
+    end
+        
+end
+
 
 %Count the number of training data
 countEachLabel(trainData)
+countEachLabel(testData)
