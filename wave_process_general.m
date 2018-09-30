@@ -28,11 +28,14 @@ len = 3099;
 root_input = fullfile('t2','set_a');
 %% Generate the relevant directory for saving the outputs the files(Output folders).
 root_output = fullfile('t2','images');
-rmdir(root_output,'s');
+%Remove the directory if it exists, else skip.
+if(exist(root_output,'dir') == 7)
+    rmdir(root_output,'s');
+end
 mkdir(root_output);
 for k = 1:numel(categories)
    if(exist(root_output,'dir') == 7)
-        mkdir(fullfile('t2','images',char(categories(k))));
+        mkdir(fullfile(root_output,char(categories(k))));
    end
 end
 

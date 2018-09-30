@@ -34,8 +34,6 @@ root_output = fullfile('t2','images');
 for d = 1:52
     [y,fs] = audioread(fullfile(root_input,dirListings(d).name));
     
-    %The data is normalized using generalized min-max method.
-    norm_y = ((y-min(y))/(max(y) - min(y)))*(1+1)-1;
     
     %Settings to set position of figure axes 
     axes('Units', 'normalized', 'Position', [0 0 1 1])
@@ -60,193 +58,193 @@ for d = 1:52
     close all hidden;
     clf;
 end 
-%% 
-disp('Generating Artifact data...');
-%For the artifact data
-for d = 53:92
-    [y,fs] = audioread(fullfile(root_input,dirListings(d).name));  
-    
-    %The data is normalized using generalized min-max method.
-    norm_y = ((y-min(y))/(max(y) - min(y)))*(1+1)-1;
-    
-    %Settings to set position of figure axes
-    axes('Units', 'normalized', 'Position', [0 0 1 1])
-    F =linspace(1,600,1000);
-    
-    %Generate the sectrogram and save gcf to fig
-    spectrogram(y,500,[],F,fs,'yaxis');
-    colormap gray;
-    fig = gcf;
-    
-    %Configurations to turn off various features of the figure
-    set(fig,'Visible','off');
-    colorbar off;
-    axis off;
-    iptsetpref('ImshowBorder','tight');
-    
-    %Save the image to file
-    frame = getframe(fig);
-    I = frame.cdata;
-    I = imresize(I,[525 700]);
-    
-    if(d >= 53+test_artifact)
-        imwrite(I,strcat(fullfile(root_output,'Test_Artifact',dirListings(d).name(1:end-4)),'.png'),'png');
-        close all hidden;
-        clf;
-    else
-        imwrite(I,strcat(fullfile(root_output,'Artifact',dirListings(d).name(1:end-4)),'.png'),'png');
-        close all hidden;
-        clf;
-    end
-end
-disp('Generating Extrahls data...');
-%For the extrahls data
-for d = 93:119
-    [y,fs] = audioread(fullfile(root_input,dirListings(d).name));  
-    
-    %The data is normalized using generalized min-max method.
-    norm_y = ((y-min(y))/(max(y) - min(y)))*(1+1)-1;
-    
-    %Settings to set position of figure axes
-    axes('Units', 'normalized', 'Position', [0 0 1 1])
-    F =linspace(1,600,1000);
-    
-    %Generate the sectrogram and save gcf to fig
-    spectrogram(y,500,[],F,fs,'yaxis');
-    colormap gray;
-    fig = gcf;
-    
-    %Configurations to turn off various features of the figure
-    set(fig,'Visible','off');
-    colorbar off;
-    axis off;
-    iptsetpref('ImshowBorder','tight');
-    
-    %Save the image to file
-    frame = getframe(fig);
-    I = frame.cdata;
-    I = imresize(I,[525 700]);
-    if(d >= 93+test_extrahls)
-        imwrite(I,strcat(fullfile(root_output,'Test_Extrahls',dirListings(d).name(1:end-4)),'.png'),'png');
-        close all hidden;
-        clf;
-    else
-        imwrite(I,strcat(fullfile(root_output,'Extrahls',dirListings(d).name(1:end-4)),'.png'),'png');
-        close all hidden;
-        clf;
-    end
-end
-disp('Generating Murmur data...');
-%For the Murmur data
-for d = 120:153
-    [y,fs] = audioread(fullfile(root_input,dirListings(d).name));  
-    
-    %The data is normalized using generalized min-max method.
-    norm_y = ((y-min(y))/(max(y) - min(y)))*(1+1)-1;
-    
-    %Settings to set position of figure axes
-    axes('Units', 'normalized', 'Position', [0 0 1 1])
-    F =linspace(1,600,1000);
-    
-    %Generate the sectrogram and save gcf to fig
-    spectrogram(y,500,[],F,fs,'yaxis');
-    colormap gray;
-    fig = gcf;
-    
-    %Configurations to turn off various features of the figure
-    set(fig,'Visible','off');
-    colorbar off;
-    axis off;
-    iptsetpref('ImshowBorder','tight');
-   
-    %Save the image to the file
-    frame = getframe(fig);
-    I = frame.cdata;
-    I = imresize(I,[525 700]);
-    if(d >= 120+test_murmur)
-        imwrite(I,strcat(fullfile(root_output,'Test_Murmur',dirListings(d).name(1:end-4)),'.png'),'png');
-        close all hidden;
-        clf;
-    else
-        imwrite(I,strcat(fullfile(root_output,'Murmur',dirListings(d).name(1:end-4)),'.png'),'png');
-        close all hidden;
-        clf;
-    end
-end
-disp('Generating Normal data...');
-%For the Normal data
-for d = 154:184
-    [y,fs] = audioread(fullfile(root_input,dirListings(d).name));  
-    
-    %The data is normalized using generalized min-max method.
-    norm_y = ((y-min(y))/(max(y) - min(y)))*(1+1)-1;
-    
-    %Settings to set position of figure axes
-    axes('Units', 'normalized', 'Position', [0 0 1 1])
-    F =linspace(1,600,1000);
-    
-    %Generate the sectrogram and save gcf to fig
-    spectrogram(y,500,[],F,fs,'yaxis');
-    colormap gray;
-    fig = gcf;
-    
-    %Configurations to turn off various features of the figure
-    set(fig,'Visible','off');
-    colorbar off;
-    axis off;
-    iptsetpref('ImshowBorder','tight');
-    
-    %Save the image to the file
-    frame = getframe(fig);
-    I = frame.cdata;
-    I = imresize(I,[525 700]);
-    if(d >= 154+test_normal)
-        imwrite(I,strcat(fullfile(root_output,'Test_Normal',dirListings(d).name(1:end-4)),'.png'),'png');
-        close all hidden;
-        clf;
-    else
-        imwrite(I,strcat(fullfile(root_output,'Normal',dirListings(d).name(1:end-4)),'.png'),'png');
-        close all hidden;
-        clf;
-    end
-end
-%% Loading and processing a bit quicker.
-rootFolder = fullfile('t2','images');
-
-%Train with all data except the unlabelled stuff
-trainData = imageDatastore(fullfile(rootFolder, categories(1:4)), 'LabelSource', 'foldernames');
-testData = imageDatastore(fullfile(rootFolder, categories(5:8)), 'LabelSource', 'foldernames');
-%Show a summary of each labelr
-tb1 = countEachLabel(trainData);
-
-%Determine the minimum no of images
-minSetCount = min(tb1{:,2});
-
-%Split the data into testData and trainData
-%[trainData,testData] = splitEachLabel(trainData,15);
-
-
-%Count the number of test data
-tb2 = countEachLabel(testData)
-
-%Modifying the labels for the trainData
-total = sum(tb2{1:4,2});
-for i = 1:total
-    if(testData.Labels(i) == "Test_Artifact")
-        testData.Labels(i) = "Artifact";
-    elseif(testData.Labels(i) == "Test_Extrahls")
-        testData.Labels(i) = "Extrahls";
-    elseif(testData.Labels(i) == "Test_Murmur")
-        testData.Labels(i) = "Murmur";
-    elseif(testData.Labels(i) == "Test_Normal")
-        testData.Labels(i) = "Normal";
-    end
-        
-end
-
-
-%Count the number of training data
-countEachLabel(trainData)
 
 
 
+% %% 
+% disp('Generating Artifact data...');
+% %For the artifact data
+% for d = 53:92
+%     [y,fs] = audioread(fullfile(root_input,dirListings(d).name));  
+%     
+%     %The data is normalized using generalized min-max method.
+%     norm_y = ((y-min(y))/(max(y) - min(y)))*(1+1)-1;
+%     
+%     %Settings to set position of figure axes
+%     axes('Units', 'normalized', 'Position', [0 0 1 1])
+%     F =linspace(1,600,1000);
+%     
+%     %Generate the sectrogram and save gcf to fig
+%     spectrogram(y,500,[],F,fs,'yaxis');
+%     colormap gray;
+%     fig = gcf;
+%     
+%     %Configurations to turn off various features of the figure
+%     set(fig,'Visible','off');
+%     colorbar off;
+%     axis off;
+%     iptsetpref('ImshowBorder','tight');
+%     
+%     %Save the image to file
+%     frame = getframe(fig);
+%     I = frame.cdata;
+%     I = imresize(I,[525 700]);
+%     
+%     if(d >= 53+test_artifact)
+%         imwrite(I,strcat(fullfile(root_output,'Test_Artifact',dirListings(d).name(1:end-4)),'.png'),'png');
+%         close all hidden;
+%         clf;
+%     else
+%         imwrite(I,strcat(fullfile(root_output,'Artifact',dirListings(d).name(1:end-4)),'.png'),'png');
+%         close all hidden;
+%         clf;
+%     end
+% end
+% disp('Generating Extrahls data...');
+% %For the extrahls data
+% for d = 93:119
+%     [y,fs] = audioread(fullfile(root_input,dirListings(d).name));  
+%     
+%     %The data is normalized using generalized min-max method.
+%     norm_y = ((y-min(y))/(max(y) - min(y)))*(1+1)-1;
+%     
+%     %Settings to set position of figure axes
+%     axes('Units', 'normalized', 'Position', [0 0 1 1])
+%     F =linspace(1,600,1000);
+%     
+%     %Generate the sectrogram and save gcf to fig
+%     spectrogram(y,500,[],F,fs,'yaxis');
+%     colormap gray;
+%     fig = gcf;
+%     
+%     %Configurations to turn off various features of the figure
+%     set(fig,'Visible','off');
+%     colorbar off;
+%     axis off;
+%     iptsetpref('ImshowBorder','tight');
+%     
+%     %Save the image to file
+%     frame = getframe(fig);
+%     I = frame.cdata;
+%     I = imresize(I,[525 700]);
+%     if(d >= 93+test_extrahls)
+%         imwrite(I,strcat(fullfile(root_output,'Test_Extrahls',dirListings(d).name(1:end-4)),'.png'),'png');
+%         close all hidden;
+%         clf;
+%     else
+%         imwrite(I,strcat(fullfile(root_output,'Extrahls',dirListings(d).name(1:end-4)),'.png'),'png');
+%         close all hidden;
+%         clf;
+%     end
+% end
+% disp('Generating Murmur data...');
+% %For the Murmur data
+% for d = 120:153
+%     [y,fs] = audioread(fullfile(root_input,dirListings(d).name));  
+%     
+%     %The data is normalized using generalized min-max method.
+%     norm_y = ((y-min(y))/(max(y) - min(y)))*(1+1)-1;
+%     
+%     %Settings to set position of figure axes
+%     axes('Units', 'normalized', 'Position', [0 0 1 1])
+%     F =linspace(1,600,1000);
+%     
+%     %Generate the sectrogram and save gcf to fig
+%     spectrogram(y,500,[],F,fs,'yaxis');
+%     colormap gray;
+%     fig = gcf;
+%     
+%     %Configurations to turn off various features of the figure
+%     set(fig,'Visible','off');
+%     colorbar off;
+%     axis off;
+%     iptsetpref('ImshowBorder','tight');
+%    
+%     %Save the image to the file
+%     frame = getframe(fig);
+%     I = frame.cdata;
+%     I = imresize(I,[525 700]);
+%     if(d >= 120+test_murmur)
+%         imwrite(I,strcat(fullfile(root_output,'Test_Murmur',dirListings(d).name(1:end-4)),'.png'),'png');
+%         close all hidden;
+%         clf;
+%     else
+%         imwrite(I,strcat(fullfile(root_output,'Murmur',dirListings(d).name(1:end-4)),'.png'),'png');
+%         close all hidden;
+%         clf;
+%     end
+% end
+% disp('Generating Normal data...');
+% %For the Normal data
+% for d = 154:184
+%     [y,fs] = audioread(fullfile(root_input,dirListings(d).name));  
+%     
+%     %The data is normalized using generalized min-max method.
+%     norm_y = ((y-min(y))/(max(y) - min(y)))*(1+1)-1;
+%     
+%     %Settings to set position of figure axes
+%     axes('Units', 'normalized', 'Position', [0 0 1 1])
+%     F =linspace(1,600,1000);
+%     
+%     %Generate the sectrogram and save gcf to fig
+%     spectrogram(y,500,[],F,fs,'yaxis');
+%     colormap gray;
+%     fig = gcf;
+%     
+%     %Configurations to turn off various features of the figure
+%     set(fig,'Visible','off');
+%     colorbar off;
+%     axis off;
+%     iptsetpref('ImshowBorder','tight');
+%     
+%     %Save the image to the file
+%     frame = getframe(fig);
+%     I = frame.cdata;
+%     I = imresize(I,[525 700]);
+%     if(d >= 154+test_normal)
+%         imwrite(I,strcat(fullfile(root_output,'Test_Normal',dirListings(d).name(1:end-4)),'.png'),'png');
+%         close all hidden;
+%         clf;
+%     else
+%         imwrite(I,strcat(fullfile(root_output,'Normal',dirListings(d).name(1:end-4)),'.png'),'png');
+%         close all hidden;
+%         clf;
+%     end
+% end
+% %% Loading and processing a bit quicker.
+% rootFolder = fullfile('t2','images');
+% 
+% %Train with all data except the unlabelled stuff
+% trainData = imageDatastore(fullfile(rootFolder, categories(1:4)), 'LabelSource', 'foldernames');
+% testData = imageDatastore(fullfile(rootFolder, categories(5:8)), 'LabelSource', 'foldernames');
+% %Show a summary of each labelr
+% tb1 = countEachLabel(trainData);
+% 
+% %Determine the minimum no of images
+% minSetCount = min(tb1{:,2});
+% 
+% %Split the data into testData and trainData
+% %[trainData,testData] = splitEachLabel(trainData,15);
+% 
+% 
+% %Count the number of test data
+% tb2 = countEachLabel(testData)
+% 
+% %Modifying the labels for the trainData
+% total = sum(tb2{1:4,2});
+% for i = 1:total
+%     if(testData.Labels(i) == "Test_Artifact")
+%         testData.Labels(i) = "Artifact";
+%     elseif(testData.Labels(i) == "Test_Extrahls")
+%         testData.Labels(i) = "Extrahls";
+%     elseif(testData.Labels(i) == "Test_Murmur")
+%         testData.Labels(i) = "Murmur";
+%     elseif(testData.Labels(i) == "Test_Normal")
+%         testData.Labels(i) = "Normal";
+%     end
+%         
+% end
+% 
+% 
+% %Count the number of training data
+% countEachLabel(trainData)

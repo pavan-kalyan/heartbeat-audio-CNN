@@ -1,5 +1,11 @@
 %This file should segment the audio data Network to process
 
+for i = 1:dir_len
+    if(contains(dirListings(i).name,'Normal')||contains(dirListings(i).name,'Murmur')||contains(dirListings(i).name,'Extrahls'))
+        [y,fs] = audioread(fullfile(root_input,dirListings(i).name));    
+        wave_segment_Shannon(y,dirListings(i).name,fs,'seg_dat');
+    end
+end
 %% Open the relevant directory to process the wave files
 filePattern = fullfile('t2','set_a','*.wav');
 dirListings = dir(filePattern);
