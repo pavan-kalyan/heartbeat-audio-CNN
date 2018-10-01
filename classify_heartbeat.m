@@ -1,7 +1,9 @@
+function classify_heartbeat(str)
 clf;
 close all hidden;
 
-[y,fs] = audioread('test.wav');
+[y,fs] = audioread(strcat(str,'.wav'));
+
 axes('Units', 'normalized', 'Position', [0 0 1 1])
 F =linspace(1,1000,2000);
     
@@ -20,6 +22,5 @@ iptsetpref('ImshowBorder','tight');
 frame = getframe(gcf);
 I = frame.cdata;
 I = imresize(I,[525 700]);
-imwrite(I,strcat('test','.png'),'png')
+imwrite(I,char(strcat(str,'.png')),'png')
 % saveas(fig,strcat('test2','.png'),'png');
-
