@@ -3,7 +3,13 @@ clf;
 close all hidden;
 
 [y,fs] = audioread(strcat(str,'.wav'));
-
+output = fullfile('t2','test_input');
+spec_output = fullfile('t2','test_output');
+wave_segment_Shannon(y,'test',fs,output);
+dirListings = dir(output);
+dir_len = length(dirListings);
+for i = 1:dir_len
+[y,fs] = audioread(fullfile(output,dirListings.name(i)));  
 axes('Units', 'normalized', 'Position', [0 0 1 1])
 F =linspace(1,1000,2000);
     
@@ -22,5 +28,6 @@ iptsetpref('ImshowBorder','tight');
 frame = getframe(gcf);
 I = frame.cdata;
 I = imresize(I,[525 700]);
-imwrite(I,char(strcat(str,'.png')),'png')
+imwrite(I,strcat(fullfile(spec_output,dirListings(i).name(1:end-4)),'.png'),'png')
 % saveas(fig,strcat('test2','.png'),'png');
+end
