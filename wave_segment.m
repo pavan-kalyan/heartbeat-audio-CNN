@@ -1,5 +1,11 @@
 %This file should segment the audio data Network to process
 
+for i = 1:dir_len
+    if(contains(dirListings(i).name,'Normal')||contains(dirListings(i).name,'Murmur')||contains(dirListings(i).name,'Extrahls'))
+        [y,fs] = audioread(fullfile(root_input,dirListings(i).name));    
+        wave_segment_Shannon(y,dirListings(i).name,fs,'seg_dat');
+    end
+end
 %% Open the relevant directory to process the wave files
 filePattern = fullfile('t2','set_a','*.wav');
 dirListings = dir(filePattern);
@@ -16,47 +22,24 @@ categories ={'Artifact','Extrahls','Murmur','Normal','Unlabelled'};
 
 %% Test module for the spectrogram
 [y,fs] = audioread(strcat('t2\set_a\','normal__201108011118.wav'));
-axes('Units', 'normalized', 'Position', [0 0 1 1])
-F =linspace(1,600,2000);
+[y,fs] = audioread(strcat('footsteps.wav'));
+norm_y = (y./max(abs(y))).^2;
+shannon_energy = -((norm_y.^2).*log(norm_y.^2));
+for i = 1:length(shannon_energy)
+     if(isnan(shannon_energy(i)) == 1)
+        shannon_energy(i) = 0;
+    end
+end
+average_shannon = sum(shannon_energy)/length(shannon_energy);
+standard_deviation = std(shannon_energy);
+normalized_shannon = (shannon_energy-average_shannon)/standard_deviation;
 
-%resubplot(2,1,1);
-spectrogram(y,500,[],F,fs,'yaxis')
-colormap gray;
-fig = gcf;
-%Configurations to turn off various features of the figure
-set(fig,'Visible','on');
-colorbar off;
-axis off;
-iptsetpref('ImshowBorder','tight');
-
-    
-frame = getframe(fig);
-imwrite(frame.cdata,strcat('test','.png'),'png');
-% subplot(2,1,2);
-% [y2,fs2] = audioread(strcat('Test_audio.aac'));
-% spectrogram(y2,500,[],F,fs2,'yaxis')
-% colormap gray;
-
-% imwrite(frame.cdata,strcat('t','.png'),'png')
-% a = imread('t.png');
-% rgb2gray(a);
-% imshow(a),title('Original Image');
-% 
-% b = imadjust(a);
-% figure, imshow(b)
-% title('Sharpened Image');
-
-x_dat = str2double(data{1,4}(368:391));
-%plot(y);
-%hold;
-%plot(x_dat,y(x_dat),'*','r');
-
-%  %% Test module for the segmation
-%  segment_index = ecgemowinmax(y,14000);
-%  max_pos = find(segment_index);
-%  init_pos = 0;
-%  final_pos = 0;
-% while(i < size(max_pos))
-%     midpoint = max[i+1]+max
-%     segment
-% end
+subplot(2,2,1);
+plot(norm_y);
+subplot(2,2,2);
+plot(shannon_energy);
+subplot(2,2,3);
+[y_upper,y_lower] = envelope(shannon_energy,1000,'peak');
+plot(y);
+subplot(2,2,4);
+plot(y);
